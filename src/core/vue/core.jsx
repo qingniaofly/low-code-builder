@@ -1,7 +1,7 @@
-import Vue, { withHooks, createRef, useCallback, useEffect, useState } from './extend'
+import Vue, { withHooks, useCallback, useEffect, useState, useRef } from './extend'
 
 export function useModelComponent(props) {
-    const instance = createRef({})
+    const instance = useRef({})
     const [state, setState] = useState({
         value: '',
         visible: true,
@@ -13,8 +13,7 @@ export function useModelComponent(props) {
     instance.current.setState = useCallback((k, v) => {
         console.log('【low-code-builder】setState:', k, v)
         setState((state) => {
-            state[k] = v
-            return state
+            return { ...state, [k]: v }
         })
     }, [])
     instance.current.getState = useCallback((k) => {
@@ -24,8 +23,8 @@ export function useModelComponent(props) {
         return v
     }, [])
     useEffect(() => {
-        const { props } = instance.current
-        props.model.setListener(instance.current)
+        const { props, state, ...inst } = instance.current
+        props.model.setListener(inst)
         return () => {
             props.model.setListener(null)
         }
@@ -35,7 +34,7 @@ export function useModelComponent(props) {
 
 export function renderModelComponent(component, props, getChildren) {
     return withHooks(function (h, ...args) {
-        const { state } = useModelComponent.bind(this)(props)
+        const { state } = useModelComponent(props)
         let child = []
         if (typeof getChildren === 'function') {
             const c = getChildren()
@@ -82,7 +81,7 @@ function withBasePropSlot(h, props) {
             style,
             props,
         },
-        [...(this.$slots.default || [])]
+        this.$slots.default || []
     )
 }
 export const WithBasePropSlot = withHooks(withBasePropSlot)

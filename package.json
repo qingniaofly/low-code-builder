@@ -1,6 +1,6 @@
 {
   "name": "@dever/low-code-builder",
-  "version": "0.0.2",
+  "version": "1.0.0",
   "description": "low code builder",
   "main": "./dist/index.js",
   "module": "./dist/index.esm.js",
@@ -11,7 +11,8 @@
     "build:ts": "yarn clean:dist && tsc -b ./tsconfig.types.json",
     "dev": "yarn build:ts && cross-env NODE_ENV=development rollup -c",
     "build": "yarn build:ts && cross-env NODE_ENV=production rollup -c",
-    "build:types": "tsc --declaration --emitDeclarationOnly --outDir temp && api-extractor run"
+    "build:types": "tsc --declaration --emitDeclarationOnly --outDir temp && api-extractor run",
+    "-----": "npm publish --access public"
   },
   "repository": {
     "type": "git",
@@ -39,7 +40,8 @@
   "peerDependencies": {
     "react": ">=16.8.0",
     "react-dom": ">=16.8.0",
-    "vue": ">=2.2"
+    "vue": ">=2.2",
+    "@dever/vhooks": ">=1.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.15.5",

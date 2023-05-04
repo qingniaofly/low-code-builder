@@ -23,8 +23,8 @@ export function useModelComponent(props) {
         return v
     }, [])
     useEffect(() => {
-        const { props } = instance.current
-        props.model.setListener(instance.current)
+        const { props, state, ...inst } = instance.current
+        props.model.setListener(inst)
         return () => {
             props.model.setListener(null)
         }
