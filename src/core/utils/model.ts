@@ -89,10 +89,13 @@ export class Model {
         }
         return configList.map((config: IConfigInfo) => {
             const { id, props, componentType, children, component } = config || {}
+            if (!componentType) {
+                throw new Error(`componentType is required, config=${JSON.stringify(config)}`)
+            }
             const model = this.modelMap.get(id) || new ViewModel(id, props as any)
             this.modelMap.set(id, model)
             const Component = this.getComponent(componentType)
-            return this.componentBuilder.renderer(Component, { ...props, id, key: id, model, component }, () => {
+            return this.componentBuilder.renderer(Component, { ...props, id, key: id, modelMap: this.modelMap, model, component }, () => {
                 return this.install(children)
             })
         })

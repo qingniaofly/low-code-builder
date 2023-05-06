@@ -7,6 +7,7 @@ export function useModelComponent(props) {
         visible: true,
         disabled: false,
         readonly: false,
+        ...props.state,
     })
     instance.current.state = state
     instance.current.props = props
@@ -34,8 +35,10 @@ export function useModelComponent(props) {
 
 export function renderModelComponent(Component, props, callback) {
     const { state } = useModelComponent(props)
+    const { model, component, modelMap, ...extraProps } = props
+    const newProps = props.$$isCustom ? { ...props, state } : extraProps
     return (
-        <Component key={props.key} {...props} state={state}>
+        <Component key={props.key} {...newProps}>
             {callback()}
         </Component>
     )

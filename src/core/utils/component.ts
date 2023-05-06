@@ -5,10 +5,10 @@ function addComponent(components: any, key: string, component: any) {
 }
 
 export function getComponent(components: any, key: string) {
-    const lowerKey = key.toLocaleLowerCase()
+    const lowerKey = key?.toLowerCase()
     let component
     for (let k in components) {
-        if (lowerKey === k.toLocaleLowerCase()) {
+        if (lowerKey === k?.toLowerCase()) {
             component = components[k]
             break
         }
