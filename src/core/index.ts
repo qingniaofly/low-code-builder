@@ -1,8 +1,13 @@
 import { IConfigInfo, Model } from './utils/model'
+
 class Builder {
     model: Model | any
     constructor(model: any, config: IConfigInfo, components?: any) {
         this.model = new model(config, components)
+    }
+
+    updateConfig(config: IConfigInfo) {
+        this.model.setConfig(config)
     }
 
     setComponents(components: any) {
@@ -13,7 +18,10 @@ class Builder {
         this.model.componentBuilder.register(obj, component)
     }
 
-    render() {
+    render(config?: IConfigInfo) {
+        if (config) {
+            this.updateConfig(config)
+        }
         return this.model.init()
     }
 }

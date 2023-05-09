@@ -32,6 +32,7 @@ export declare class Model {
     config: IConfigInfo;
     componentBuilder: ComponentBuilder;
     constructor(config: IConfigInfo, componentBuilder: ComponentBuilder);
+    setConfig(config: IConfigInfo): void;
     get(key: string): ViewModel;
     init(): any[];
     getComponent(key: string): any;

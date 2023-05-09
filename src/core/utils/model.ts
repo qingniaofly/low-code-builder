@@ -64,8 +64,12 @@ export class Model {
     config: IConfigInfo
     componentBuilder: ComponentBuilder
     constructor(config: IConfigInfo, componentBuilder: ComponentBuilder) {
-        this.config = config
+        this.setConfig(config)
         this.componentBuilder = componentBuilder
+    }
+
+    setConfig(config: IConfigInfo) {
+        this.config = config
     }
 
     get(key: string) {

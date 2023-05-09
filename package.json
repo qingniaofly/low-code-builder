@@ -1,6 +1,6 @@
 {
   "name": "@dever/low-code-builder",
-  "version": "1.0.2",
+  "version": "1.0.6",
   "description": "low code builder",
   "main": "./dist/index.js",
   "module": "./dist/index.esm.js",
